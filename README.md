@@ -312,10 +312,4 @@ These are future enhancements and should not be considered completed unless impl
 
 ## Author
 
-**Sarthak**
-
-GitHub: [UserSarthak](https://github.com/UserSarthak)
-
-## License
-
-A license has not yet been specified. Add a `LICENSE` file if you intend to distribute the project under an open-source license.
+**UserSarthak**
