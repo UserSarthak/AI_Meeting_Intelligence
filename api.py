@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel, Field, field_validator
 
+from fastapi.middleware.cors import CORSMiddleware
+
 from fastapi.encoders import jsonable_encoder
 
 from graph import meeting_graph
@@ -26,6 +28,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+    ],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class MeetingRequest(BaseModel):
     transcript: str = Field(..., min_length=1, max_length=50000)

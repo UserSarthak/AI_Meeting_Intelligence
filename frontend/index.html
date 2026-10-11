@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Meeting Intelligence</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">AI</div>
+                <div>
+                    <h2>MeetMind</h2>
+                    <p>Meeting Intelligence</p>
+                </div>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="navigation">
+                <button class="nav-item active" data-page="dashboard">
+                    <span>◫</span> Overview
+                </button>
+
+                <button class="nav-item" data-page="meetings">
+                    <span>▤</span> Meetings
+                </button>
+
+                <button class="nav-item" data-page="actions">
+                    <span>✓</span> Action Items
+                </button>
+
+                <button class="nav-item" data-page="assistant">
+                    <span>✳</span> AI Assistant
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-dot"></div>
+                <span>Meeting Intelligence Platform</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">YOUR WORKSPACE</p>
+                    <h1 id="page-title">Overview</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <span class="system-status">
+                        <span class="status-dot"></span>
+                        AI Workspace
+                    </span>
+                </div>
+            </header>
+
+            <div id="dashboard-page" class="page-view active">
+
+                <section class="welcome-section">
+                    <div>
+                        <p class="eyebrow">MEETING INTELLIGENCE</p>
+                        <h2>Turn conversations into action.</h2>
+                        <p class="welcome-description">
+                            Analyze meetings, track responsibilities,
+                            and get answers from your meeting history.
+                        </p>
+                    </div>
+
+                    <div class="welcome-icon">✳</div>
+                </section>
+
+                <section class="metrics-grid">
+                    <article class="metric-card">
+                        <div class="metric-top">
+                            <span>Total Meetings</span>
+                            <span class="metric-icon blue">▤</span>
+                        </div>
+                        <p class="metric-value" id="total-meetings">—</p>
+                        <p class="metric-note">Meetings recorded</p>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-top">
+                            <span>Action Items</span>
+                            <span class="metric-icon purple">✓</span>
+                        </div>
+                        <p class="metric-value" id="total-actions">—</p>
+                        <p class="metric-note">Tasks extracted</p>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-top">
+                            <span>AI Assistant</span>
+                            <span class="metric-icon green">✳</span>
+                        </div>
+                        <p class="metric-value">Ready</p>
+                        <p class="metric-note">Meeting Q&A interface</p>
+                    </article>
+                </section>
+
+                <section class="content-card">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Recent Meetings</h3>
+                            <p>Your latest meeting records will appear here.</p>
+                        </div>
+                        <button class="secondary-button" id="refresh-button">
+                            Refresh
+                        </button>
+                    </div>
+
+                    <div id="recent-meetings" class="empty-state">
+                        <div class="empty-icon">▤</div>
+                        <h3>Ready to connect</h3>
+                        <p>
+                            Your meeting records will appear here
+                            after we connect the frontend to FastAPI.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+
+            <!-- Meetings page -->
+            <div id="meetings-page" class="page-view">
+
+                <section class="content-card">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Create a New Meeting</h3>
+                            <p>
+                                Enter a transcript for AI-powered meeting analysis.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form id="meeting-form" class="meeting-form">
+                        <label for="transcript">Meeting Transcript</label>
+
+                        <textarea
+                            id="transcript"
+                            name="transcript"
+                            rows="7"
+                            placeholder="Example: Rahul will complete the backend API by Friday. Priya will handle database integration. The team decided to use PostgreSQL."
+                            required
+                        ></textarea>
+
+                        <div class="form-footer">
+                            <span class="form-hint">
+                                Include discussions, decisions, tasks, and deadlines.
+                            </span>
+
+                            <button
+                                type="submit"
+                                id="analyze-button"
+                                class="primary-button"
+                            >
+                                Analyze Meeting
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="meeting-message" class="message-box" hidden></div>
+                </section>
+
+                <section class="content-card meetings-history">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Meeting History</h3>
+                            <p>Review your saved meeting records.</p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="meetings-refresh-button"
+                            class="secondary-button"
+                        >
+                            Refresh
+                        </button>
+                    </div>
+
+                    <div id="meetings-list" class="meeting-list">
+                        <p class="loading-text">Loading meetings...</p>
+                    </div>
+                </section>
+
+            </div>
+
+
+
+            <!-- Action Items page -->
+            <div id="actions-page" class="page-view">
+
+                <section class="content-card">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Action Items</h3>
+                            <p>Track responsibilities and deadlines across meetings.</p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="actions-refresh-button"
+                            class="secondary-button"
+                        >
+                            Refresh
+                        </button>
+                    </div>
+
+                    <div class="action-stats">
+                        <div>
+                            <span class="stat-label">Total Tasks</span>
+                            <strong id="action-count">—</strong>
+                        </div>
+                        <div>
+                            <span class="stat-label">Assigned Tasks</span>
+                            <strong id="assigned-count">—</strong>
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <label for="meeting-filter">Filter by meeting</label>
+                        <select id="meeting-filter">
+                            <option value="all">All Meetings</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="action-table">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Assigned To</th>
+                                    <th>Deadline</th>
+                                    <th>Meeting</th>
+                                </tr>
+                            </thead>
+                            <tbody id="action-items-body">
+                                <tr>
+                                    <td colspan="4" class="table-message">
+                                        Loading action items...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+
+
+            <!-- AI Assistant page -->
+            <div id="assistant-page" class="page-view">
+
+                <section class="content-card assistant-card">
+                    <div class="section-heading">
+                        <div>
+                            <h3>AI Meeting Assistant</h3>
+                            <p>Get answers grounded in your stored meeting information.</p>
+                        </div>
+                        <span class="assistant-badge">RAG Powered</span>
+                    </div>
+
+                    <div class="assistant-intro">
+                        <div class="assistant-avatar">✳</div>
+                        <div>
+                            <h4>Ask your meeting assistant</h4>
+                            <p>
+                                Find decisions, responsibilities, deadlines,
+                                and other details from your meeting history.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form id="question-form" class="question-form">
+                        <label for="question-scope">Search scope</label>
+
+                        <select id="question-scope">
+                            <option value="all">All Meetings</option>
+                            <option value="specific">Specific Meeting</option>
+                        </select>
+
+                        <div id="specific-meeting-field" hidden>
+                            <label for="question-meeting-id">Meeting ID</label>
+                            <select id="question-meeting-id">
+                                <option value="">Loading meetings...</option>
+                            </select>
+                        </div>
+
+                        <label for="question-input">Your question</label>
+
+                        <textarea
+                            id="question-input"
+                            rows="3"
+                            placeholder="Example: Who is responsible for preparing the dashboard?"
+                            required
+                        ></textarea>
+
+                        <div class="question-footer">
+                            <span class="form-hint">
+                                Answers depend on information available in your meetings.
+                            </span>
+
+                            <button
+                                type="submit"
+                                id="ask-button"
+                                class="primary-button"
+                            >
+                                Ask Assistant
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="answer-message" class="message-box" hidden></div>
+
+                    <section id="answer-panel" class="answer-panel" hidden>
+                        <div class="answer-heading">
+                            <div class="assistant-avatar small">✳</div>
+                            <div>
+                                <h4>Assistant's Answer</h4>
+                                <p id="answer-scope-label"></p>
+                            </div>
+                        </div>
+
+                        <div id="answer-text" class="answer-text"></div>
+                    </section>
+                </section>
+
+            </div>
+
+
+
+            <footer class="page-footer">
+                AI Meeting Intelligence & Task Automation
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
