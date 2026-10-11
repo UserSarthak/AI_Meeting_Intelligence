@@ -36,7 +36,7 @@ The platform provides a web dashboard for submitting meeting transcripts, review
 | Vector Database | ChromaDB |
 | Embeddings | Hugging Face sentence-transformer model |
 | Frontend | HTML, CSS, JavaScript |
-| API Testing | Swagger UI, Postman |
+| API Testing | Swagger UI |
 | Version Control | Git and GitHub |
 
 ## Architecture
