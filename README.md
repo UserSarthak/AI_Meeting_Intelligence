@@ -286,7 +286,6 @@ The system also includes handling for missing information so it can avoid presen
 You can test the application using:
 
 - **Swagger UI:** Submit requests and inspect responses at `/docs`.
-- **Postman:** Test the REST API endpoints.
 - **Web Dashboard:** Create meetings, inspect meeting history, filter action items, and ask questions.
 - **Redis CLI:** Inspect cache keys and TTL values when verifying caching behavior.
 
